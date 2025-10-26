@@ -10,8 +10,8 @@ from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from .models import CustomeUser
-
+from .models import CustomeUser, Profile
+from menu.models import MenuItem
 # =============================
 # Home Page View
 # =============================
@@ -32,7 +32,6 @@ def user_registration_view(request):
             # Save user object but don't activate yet
             user = form.save(commit=False)
             user.is_active = False
-            user.save()
 
             # Prepare account activation email
             current_site = get_current_site(request)
@@ -50,15 +49,16 @@ def user_registration_view(request):
 
             try:
                 email.send()
+                user.save()
                 messages.success(request, 'Please check your email to complete the registration.')
                 return redirect('home')
             except Exception as e:
                 # Fallback if email fails
                 messages.error(request, f'Email could not be sent: {e}')
-                return redirect('sign-up')
+                return render(request, 'registration/sign_up.html', {'form': form})
         else:
             messages.error(request, 'Invalid form sent.')
-            return redirect('sign-up')
+            return render(request, 'registration/sign_up.html', {'form': form})
     else:
         # GET request — present blank sign-up form
         form = RegistrationForm()
@@ -131,7 +131,24 @@ def logout_view(request):
 # =============================
 @login_required()
 def index_view(request):
-    return render(request, 'registration/index.html')
+    special_menu_items = MenuItem.objects.filter(category = 'SPECIAL', available=True)
+    breakfast_menu_items = MenuItem.objects.filter(category='BREAKFAST', available=True)
+    main_course_menu_items = MenuItem.objects.filter(category='MAIN MEALS', available=True)
+    soft_drink_menu_items = MenuItem.objects.filter(category='SOFTDRINKS & JUICES', available=True)
+    light_meal_menu_items = MenuItem.objects.filter(category='LIGHT MEALS', available=True)
+    beer_and_cider_menu_items = MenuItem.objects.filter(category='BEER & CIDERS', available=True)
+    sandwich_menu_items = MenuItem.objects.filter(category='SANDWICHES', available=True)
+    dessert_menu_items = MenuItem.objects.filter(category='DESSERT', available=True)
+    return render(request, 'registration/index.html', {
+        'special_menu_items': special_menu_items,
+        'breakfast_menu_items': breakfast_menu_items,
+        'main_course_menu_items': main_course_menu_items,
+        'dessert_menu_items': dessert_menu_items,
+        'soft_drink_menu_items': soft_drink_menu_items,
+        'light_meal_menu_items': light_meal_menu_items,
+        'beer_and_cider_menu_items': beer_and_cider_menu_items,
+        'sandwich_menu_items': sandwich_menu_items,
+    })             
 
 # =============================
 # Index View (Protected)
@@ -139,3 +156,45 @@ def index_view(request):
 @login_required()
 def admin_home_view(request):
     return render(request, 'registration/admin_home.html')
+
+# =============================
+# About View
+def about_view(request):
+    return render(request, 'registration/about.html')   
+
+# =============================
+# Contact View
+def contact_view(request):
+    return render(request, 'registration/contact.html')
+
+
+def about(request):
+    return render(request, 'registration/about.html')
+
+
+# =============================
+@login_required
+def profile_view(request):
+    user = request.user  # Get the currently logged-in user
+
+    context = {
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'full_name': f"{user.first_name} {user.last_name}",
+        'email': user.email,
+        'phone': user.profile.phone if hasattr(user, 'profile') else '',
+    }
+    return render(request, 'registration/profile.html', context)
+
+# =============================
+@login_required()
+def help_view(request):
+    return render(request, 'registration/help.html')
+
+# =============================
+@login_required()
+def refund_view(request):
+    return render(request, 'registration/refund.html')
+
+# ============================= 
+

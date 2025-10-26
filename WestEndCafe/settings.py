@@ -133,9 +133,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 STATICFILES_DIRS=(
     os.path.join(BASE_DIR,'static'),
 )
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+
+# During development
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# During production (after collectstatic)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -153,3 +164,15 @@ AUTH_USER_MODEL = 'authentication.CustomeUser'
 CART_SESSION_ID = 'cart'
 #MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_REDIRECT_URL = 'event_list'
+
+BANK_DETAILS = {
+    'bank_name': 'FNB',
+    'account_number': '1234567890',
+    'account_type': 'Savings',
+    'branch': 'Cape Town Main Branch',
+}

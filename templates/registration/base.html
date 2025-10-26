@@ -2,65 +2,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% comment %} Page title {% endcomment %}
-    <title>{% block page_title %}Home{% endblock page_title %}</title>
-    {% comment %} Bootstrap CSS {% endcomment %}
-    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
-    {% comment %} Custome CSS {% endcomment %}
-    <link rel="stylesheet" href="{% static "css/custome.css" %}">
-    {% comment %} Fontawesom CDN {% endcomment %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    {% comment %} Favicon {% endcomment %}
-    {% comment %} <link rel="icon" type="image/x-icon" href="{% static "images/favicon.ico" %}"> {% endcomment %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>West End Café — Home</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+    }
+    .hero video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      top: 40%;
+      transform: translateY(-40%);
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 700;
+    }
+    .hero-content span {
+      color: #f8d210;
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 80px 0;
+    }
+    .about-section .img-fluid {
+      border-radius: 10px;
+    }
+
+    /* Specials */
+    .specials-section {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #222;
+      color: #ddd;
+      padding: 15px 0;
+    }
+    .footer a {
+      color: #f8d210;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      border-top: 1px solid #444;
+      text-align: center;
+      padding-top: 15px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
+
 <body>
-    {% block body %}
-    
-    <nav class="navbar navbar-expand-lg bg-primary container-fluid " data-bs-theme="dark">
-        <div class="container-fluid">
-            {% comment %} <a class="navbar-brand" href="{% url "home" %}">Navbar</a> {% endcomment %}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav ms-auto">
-                {% block navbar_right %}
-                    <li class="nav-item">
-                    <a class="nav-link" href="{% url "login" %}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="{% url "sign-up" %}">Sign-Up</a>
-                    </li>
-                {% endblock navbar_right %}
-               
-            </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'home' %}">☕ West End Café</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'menu_list' %}">Menus</a></li>
+          <li class="nav-item"><a href="{% url 'event' %}" class="nav-link">Events</a></li> 
+          <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservations</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+        </ul>
+        <div class="d-flex ms-3">
+          <a href="{% url 'dologin' %}" class="btn btn-outline-light btn-sm me-2">Login</a>
+          <a href="{% url 'sign-up' %}" class="btn btn-warning btn-sm">Sign Up</a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
+  <main>
+{% block main_content %}
 
-    <main>
-        {% block main_content %}
-            {% for message in messages %}
-                {% if message.tags == error %}
-                    <h5 class="alert alert-danger">{{message}}</h5>
-                {% else %}
-                    <h5 class="alert alert-primary">{{message}}</h5>
-                {% endif %}
-            {% endfor %}
-        {% endblock main_content %}
-    </main>
+  <!-- Hero Section with Video -->
+  <header class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="{% static 'videos/Background.mp4' %}" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <h1>West End <span>~ Café ~</span></h1>
+      <p class="lead mt-3">~ Where Every Sip Tells a Story ~</p>
+    </div>
+  </header>
 
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-md-6">
+          <img src="{% static 'images/picture3.jpg' %}" class="img-fluid shadow" alt="Cafe Image" />
+        </div>
+        <div class="col-md-6">
+          <h3>About Us</h3>
+          <p>
+            West End Café is the ideal spot to relax after a long day, celebrate special occasions, 
+            enjoy a delicious meal, or sip on a perfectly crafted cocktail as the sun sets on a warm evening.
+            From hearty breakfasts to lively dinners, West End Café offers something for every mood.
+          </p>
+          <a href="{% url 'about' %}" class="btn btn-outline-dark">About the Brand</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    
-    {% endblock body %}
+  <!-- Specials Section -->
+  <section class="specials-section text-center">
+    <div class="container">
+      <h2 class="mb-4">Recent Specials</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <img src="{% static 'images/plate 3.jpg' %}" class="card-img-top" alt="Special 1" />
+            <div class="card-body">
+              <h5 class="card-title">Mocha Magic</h5>
+              <p class="card-text">A rich blend of espresso and chocolate topped with whipped cream.</p>
+              <form method="post" action="{% url 'cart_add' 1 %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning btn-sm">Order Now</button>
+              </form>
+            </div>
+          </div>
+        </div>
 
-    <footer class="justify-content-center mt-auto">
-        <span class="text-center">Copyright &copy;2025 West End Cafe | All rights reserverd.</span>
-    </footer>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <img src="{% static 'images/picture2.png' %}" class="card-img-top" alt="Special 2" />
+            <div class="card-body">
+              <h5 class="card-title">Sunny Breakfast</h5>
+              <p class="card-text">Scrambled eggs, bacon, and freshly brewed coffee for a perfect start.</p>
+              <form method="post" action="{% url 'cart_add' 2 %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning btn-sm">Order Now</button>
+              </form>
+            </div>
+          </div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js""></script>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <img src="{% static 'images/picture3.jpg' %}" class="card-img-top" alt="Special 3" />
+            <div class="card-body">
+              <h5 class="card-title">Evening Delight</h5>
+              <p class="card-text">Enjoy cocktails and snacks under our cozy sunset ambiance.</p>
+              <a href="{% url 'booking_form' %}" class="btn btn-warning btn-sm">Reserve Table</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock main_content %}
+</main>
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-4">
+          <h5>West End Café</h5>
+          <p>A cozy place to relax, enjoy great coffee, and share special moments.</p>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p><i class="fas fa-map-marker-alt me-2"></i> Unity Park, Lusikisiki, South Africa, 4820</p>
+          <p><i class="fas fa-phone-alt me-2"></i> <a href="tel:0638382764">063 838 2764</a></p>
+          <p><i class="fas fa-envelope me-2"></i> <a href="mailto:westandchillers@gmail.com">westandchillers@gmail.com</a></p>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Follow Us</h5>
+          <a href="https://www.facebook.com/profile.php?id=61567096079340" target="_blank" class="me-3">
+            <i class="fab fa-facebook-f fa-lg"></i>
+          </a>
+          <a href="#" target="_blank">
+            <i class="fab fa-instagram fa-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom mt-4">
+        <p>Copyright &copy; 2025 West End Café | All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

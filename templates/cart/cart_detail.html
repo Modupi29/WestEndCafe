@@ -1,0 +1,568 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>West End Café — Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style> 
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+    font-family: "Poppins", sans-serif;
+    background-color: ;
+    color: #222;
+    }
+
+    /* HEADER SECTION */
+    .login-header {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    position: relative;
+    }
+
+    .login-header h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    }
+
+    .login-header h1 span {
+    display: block;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-top: 0.3em;
+    }
+
+    .home-btn {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background-color: #064e3b;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+    }
+
+    .home-btn:hover {
+    background-color: #0b7d5b;
+    }
+
+    /* REFUND SECTION */
+    .Help-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("Picture4.jpg") center center/cover no-repeat;
+    padding: 50px 20px;
+    min-height: 70vh;
+    background-color: #001c31ab;
+
+    }
+
+    .Forhelp-section {
+    width: 80%;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+    }
+
+    /* Heading Box */
+    .help-heading {
+    background-color: #333; /* dark grey */
+    color:#9c860c;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.8em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    }
+
+    /* Paragraph Boxes */
+    .help-paragraph {
+    background-color: #dcdcdc; /* light grey */
+    color: #333;
+    margin-top: 15px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    line-height: 1.6;
+    font-size: 1em;
+    }
+    .empty-cart {
+    text-align: center;
+    padding: 40px 20px;
+    }
+
+    .browse-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+    .refund-box {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .home-btn {
+        top: 15px;
+        left: 15px;
+        padding: 5px 12px;
+        font-size: 0.8rem;
+    }
+    }
+    /* ---------------- FOOTER ---------------- */
+    .footer {
+    background-color: #111;
+    color: #ddd;
+    padding: 0px 20px 20px;
+    font-family: "Poppins", sans-serif;
+    }
+
+    .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    text-align: left;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+    flex: 1;
+    min-width: 250px;
+    margin: 20px 0;
+    }
+
+    .footer-left h3 {
+    color: #f5c518;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    }
+
+    .footer-description {
+    color: #aaa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    }
+
+    .footer-center h4,
+    .footer-right h4 {
+    color: #f5c518;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    }
+
+    .footer-center ul {
+    list-style: none;
+    padding: 0;
+    }
+
+    .footer-center li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    }
+
+    .footer-center i {
+    margin-right: 10px;
+    color: #f5c518;
+    }
+
+    .footer-center a {
+    text-decoration: none;
+    color: #ddd;
+    }
+
+    .footer-center a:hover {
+    color: #f5c518;
+    transition: 0.3s;
+    }
+
+    /* Social Media Icons */
+    .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.4rem;
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-icons a:hover {
+    color: #f5c518;
+    transform: scale(1.2);
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+    border-top: 1px solid #333;
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    font-size: 0.9rem;
+    color: #aaa;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        margin: 14px 0;
+    }
+    .footer-description{
+        font-size: 0.8rem;    
+    }
+    .footer-center li {
+        font-size: 0.9rem;
+        
+    }
+
+    .social-icons a {
+        font-size: 1.3rem;
+    }
+    @keyframes bump {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.3); }
+    50% { transform: scale(1); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+    }
+
+    .cart-bump {
+      animation: bump 0.5s ease-out;
+    }
+    }
+  </style>
+</head>
+<body>
+      <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'dashboard' %}">☕ West End Café</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'event_list' %}">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'booking_list' %}">Reservations</a></li>
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="{% url 'cart_detail' %}">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle" style="display: {% if cart.items.count %}inline-block{% else %}none{% endif %};">
+                {{ cart.items.count }}
+              </span>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                  <i class="fa-solid fa-user"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{% url 'order_list' %}"> Orders</a></li>
+                    <li><a class="dropdown-item" href="{% url 'booking_list' %}">Manage Bookings</a></li>
+                    <li><a class="dropdown-item" href="{% url 'refund' %}">Refunds</a></li>
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile Details</a></li>
+                    <li><a class="dropdown-item" href="{% url 'help' %}">Help</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'dologout' %}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        </div>
+    </div>
+</nav>
+
+{% block content %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+<div class="container my-5 py-5">
+
+  <h2 class="mb-4 text-center">Your Cart</h2>
+
+  {% if cart_items %}
+  <form method="POST" action="">
+    {% csrf_token %}
+    <table class="table table-striped align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cart_item in cart_items %}
+        <tr>
+          <td>{{ cart_item.item.name }}</td>
+          <td>
+            <input type="number" name="quantity_{{ cart_item.id }}" value="{{ cart_item.quantity }}" min="1" class="form-control" style="width:80px;">
+          </td>
+          <td>R{{ cart_item.item.price|floatformat:2 }}</td>
+          <td>
+            <a href="{% url 'cart_delete' cart_item.id %}" class="btn btn-sm btn-danger">Remove</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+
+  <div class="d-flex justify-content-between my-3">
+    <h5><strong>Total:</strong> R{{ total_price|floatformat:2 }}</h5>
+    <!-- Checkout Button -->
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+      Proceed to Checkout
+    </button>
+  </div>
+  <!-- Checkout Modal -->
+  <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Checkout Options</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Choose your payment option:</p>
+          <div class="d-flex justify-content-around mt-3">
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payNowModal">
+              Pay Now
+            </a>
+            <button type="button" class="btn btn-secondary" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#payLaterModal" 
+                    data-bs-dismiss="modal">
+              Pay Later
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Pay Now Modal -->
+<div class="modal fade" id="payNowModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pay Now</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body ">
+        <p>Please make a payment using the following bank details:</p>
+        <ul>
+          <li><strong>Bank Name:</strong> FNB</li>
+          <li><strong>Account Number:</strong> 123456789</li>
+          <li><strong>Account Type:</strong> SAVINGS</li>
+          <li><strong>Branch:</strong> Luisikisiki</li>
+        </ul>
+      </div>
+      <div class="modal-body text-center">
+        <p>Please upload your proof of payment (PDF or JPG):</p>
+        <input type="file" id="paymentFile" accept=".pdf,.jpg,.jpeg" class="form-control mb-3">
+        <button type="button" class="btn btn-success" id="payNowConfirmBtn">Submit Payment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Pay Later Modal -->
+  <div class="modal fade" id="payLaterModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Pay Later</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Your order will be saved. You can pay later at pickup or delivery.</p>
+          <button type="button" class="btn btn-success" id="payLaterConfirmBtn">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+  <div class="alert alert-info text-center mt-5">
+    Your cart is empty. <a href="{% url 'dashboard' %}" class="alert-link">Browse menu</a>
+  </div>
+{% endif %}
+
+</div>
+{% endblock content %}
+
+  
+   <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-left">
+          <h3>West End Café</h3>
+          <p class="footer-description">
+            A cozy place to relax, enjoy great coffee, and share special moments.
+          </p>
+        </div>
+
+        <div class="footer-center">
+          <h4>Contact Us</h4>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <p><strong>Address:</strong> 
+                <a href="https://www.google.com/maps?q=Unity+Park,+Lusikisiki,+South+Africa,+4820" target="_blank">
+                  Unity Park, Lusikisiki, South Africa, 4820
+                </a>
+              </p>
+            </li>
+            <li>
+              <i class="fas fa-phone-alt"></i>
+              <p><strong>Telephone:</strong> 
+                <a href="tel:0640991151">079 752 7017</a>
+              </p>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <p><strong>Email:</strong> 
+                <a href="mailto:westandchillers@gmail.com">westandchillers@gmail.com</a>
+              </p>
+
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-right">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61567096079340" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a> <!-- Placeholder for Instagram -->
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Copyright &copy; 2025 West End Café | All rights reserved.</p>
+      </div>
+    </footer>
+    <!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<script>
+// PAY LATER
+document.getElementById('payLaterConfirmBtn').addEventListener('click', function() {
+    fetch("{% url 'pay_later' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Accept': 'application/json',
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            // Hide modal
+            const payLaterModalEl = document.getElementById('payLaterModal');
+            const payLaterModal = bootstrap.Modal.getInstance(payLaterModalEl) || new bootstrap.Modal(payLaterModalEl);
+            payLaterModal.hide();
+
+            // Clear cart UI
+            const cartCount = document.querySelector('#cart-icon-count');
+            if (cartCount) cartCount.textContent = 0;
+
+            const cartItemsContainer = document.querySelector('#cart-items-container');
+            if (cartItemsContainer) cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+
+            alert(data.message);
+        } else {
+            alert(data.message || 'Failed to process order.');
+        }
+    })
+    .catch(err => console.error(err));
+});
+
+// PAY NOW
+document.getElementById('payNowForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fileInput = this.querySelector('input[name="file"]');
+    const file = fileInput.files[0];
+    if (!file) { alert('Please select a file.'); return; }
+
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg'];
+    if (!allowedTypes.includes(file.type)) {
+        alert('Only PDF or JPG files are allowed.');
+        return;
+    }
+
+    const formData = new FormData(this);
+
+    fetch("{% url 'pay_now' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+        },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            // Hide modal
+            const payNowModalEl = document.getElementById('payNowModal');
+            const payNowModal = bootstrap.Modal.getInstance(payNowModalEl) || new bootstrap.Modal(payNowModalEl);
+            payNowModal.hide();
+
+            // Clear cart UI
+            const cartCount = document.querySelector('#cart-icon-count');
+            if (cartCount) cartCount.textContent = 0;
+
+            const cartItemsContainer = document.querySelector('#cart-items-container');
+            if (cartItemsContainer) cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+
+            alert(data.message);
+        } else {
+            alert(data.message || 'Failed to submit payment proof.');
+        }
+    })
+    .catch(err => console.error(err));
+});
+
+</script>
+
+</body>
+</html>

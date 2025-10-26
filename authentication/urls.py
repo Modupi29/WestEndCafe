@@ -9,5 +9,10 @@ urlpatterns = [
     path('dashboard/', views.index_view, name='dashboard'),
     path('dashboard/', views.index_view, name='dashboard'),
     path('admin-dashboard/', views.admin_home_view, name='admin-dashboard'),
+    path('about/', views.about_view, name='about'),
+    path('contact/', views.contact_view, name='contact'),
+    path('profile/', views.profile_view, name='profile'),
+    path('help/', views.help_view, name='help'),
+    path('refund/', views.refund_view, name='refund'),
 
 ]

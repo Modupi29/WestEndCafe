@@ -1,0 +1,14 @@
+<div class="col-md-4 mb-4">
+    <div class="card shadow-sm border-0">
+        {% if item.image %}
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text text-muted">{{ item.description|truncatechars:80 }}</p>
+            <p class="fw-bold text-success">R{{ item.price }}</p>
+            <a href="{% url 'menu_detail' item.id %}" class="btn btn-sm btn-primary">View</a>
+            <a href="{% url 'menu_edit' item.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+        </div>
+    </div>
+</div>

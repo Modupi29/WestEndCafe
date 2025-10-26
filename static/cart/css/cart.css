@@ -1,0 +1,72 @@
+h2 {
+  font-weight: 600;
+  color: #333;
+}
+
+.card {
+  border-radius: 0.75rem;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+.table th {
+  background-color: #f8f9fa;
+}
+.table td {
+  border-top: 1px solid #dee2e6;
+}
+.table .product-img {
+  width: 80px;
+  height: auto;
+}
+.table .quantity-input {
+  width: 60px;
+}
+.table .remove-btn {
+  color: #dc3545;
+  cursor: pointer;
+}
+
+.table .remove-btn:hover {
+  color: #a71d2a;
+}
+.btn-checkout {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-checkout:hover {
+  background-color: #218838;
+  color: white;
+}
+.btn-continue {
+  background-color: #007bff;
+  color: white;
+}
+.btn-continue:hover {
+  background-color: #0056b3;
+  color: white;
+}
+.total-price {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.total-price span {
+  color: #28a745;
+}
+
+@media (max-width: 576px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+  .table th, .table td {
+    font-size: 0.875rem;
+  }
+  .table .product-img {
+    width: 60px;
+  }
+  .table .quantity-input {
+    width: 50px;
+  }
+}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+  <h2>Update Cart Item</h2>
+  <div class="card p-4 shadow-sm">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Item</label>
+        <input type="text" class="form-control" value="{{ item.menu_item.name }}" readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input type="number" name="quantity" class="form-control" value="{{ item.quantity }}" min="1" required>
+      </div>
+      <button type="submit" class="btn btn-success">Update</button>
+      <a href="{% url 'cart_detail' %}" class="btn btn-secondary">Back</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

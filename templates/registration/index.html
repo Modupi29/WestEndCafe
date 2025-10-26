@@ -1,19 +1,676 @@
-{% extends "registration/base.html" %}
-{% block page_title %}Dashboard{% endblock page_title %}
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome | West End Cafe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+      :root {
+          --cafe-brown: #8B4513;
+          --cafe-dark: #2C1A1A;
+          --cafe-gold: #D4AF37;
+          --cafe-light: #F8F5F2;
+          --cafe-red: #8B0000;
+      }
+      
+      body {
+          background-color: var(--cafe-light);
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: #333;
+          display:grid;
+          grid-template-rows: auto 1fr auto;
+          min-height: 100vh;
+          grid-template-areas:
+              "nav"
+              "main"
+              "footer";
+      }
+      nav{
+          grid-area: nav;
+      }
+      main{
+          padding: 2em;
+          grid-area: main;
+      } 
+      footer{
+          grid-area: footer;
+      } 
+      .cafe-header {
+          background: linear-gradient(135deg, var(--cafe-dark) 0%, var(--cafe-brown) 100%);
+          color: white;
+          padding: 40px 0;
+          text-align: center;
+          margin-bottom: 30px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      
+      .cafe-title {
+          font-size: 3rem;
+          font-weight: 300;
+          letter-spacing: 4px;
+          margin-bottom: 10px;
+      }
+      
+      .cafe-subtitle {
+          font-size: 1.2rem;
+          opacity: 0.9;
+          letter-spacing: 10px;
+      }
+      
+      .menu-container {
+          max-width: 1200px;
+          margin: 0 auto;
+      }
+      
+      .category-tabs {
+          background: white;
+          border-radius: 10px;
+          padding: 10px;
+          margin-bottom: 30px;
+          box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      }
+      
+      .category-tab {
+          padding: 12px 25px;
+          font-weight: 500;
+          color: var(--cafe-dark);
+          border: none;
+          background: none;
+          transition: all 0.3s;
+          border-radius: 5px;
+      }
+      
+      .category-tab.active {
+          background-color: var(--cafe-brown);
+          color: white;
+      }
+      
+      .category-tab:hover:not(.active) {
+          background-color: #f0f0f0;
+      }
+      
+      .category-section {
+          display: none;
+      }
+      
+      .category-section.active {
+          display: block;
+      }
+      
+      .category-card {
+          background: white;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+          margin-bottom: 30px;
+          transition: transform 0.3s;
+      }
+      
+      .category-card:hover {
+          transform: translateY(-5px);
+      }
+      
+      .category-header {
+          background-color: var(--cafe-brown);
+          color: white;
+          padding: 15px 20px;
+          margin: 0;
+          font-size: 1.5rem;
+      }
+      
+      .menu-item {
+          padding: 15px 20px;
+          border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .menu-item:last-child {
+          border-bottom: none;
+      }
+      
+      .item-name {
+          font-weight: 600;
+          font-size: 1.1rem;
+          margin-bottom: 5px;
+      }
+      
+      .item-description {
+          color: #666;
+          font-size: 0.9rem;
+          margin-bottom: 8px;
+      }
+      
+      .item-price {
+          font-weight: bold;
+          color: var(--cafe-red);
+          font-size: 1.1rem;
+      }
+      
+      .divider {
+          height: 1px;
+          background: linear-gradient(to right, transparent, var(--cafe-gold), transparent);
+          margin: 20px 0;
+      }
+      
+      .special-tag {
+          background-color: var(--cafe-red);
+          color: white;
+          padding: 2px 8px;
+          border-radius: 3px;
+          font-size: 0.8rem;
+          margin-left: 10px;
+      }
+      
+      .warning-note {
+          background-color: #fff8e1;
+          border-left: 4px solid #ffc107;
+          padding: 15px;
+          margin: 20px 0;
+          font-size: 0.85rem;
+          color: #666;
+      }
+      
+      .footer {
+          background-color: var(--cafe-dark);
+          color: white;
+          padding: 30px 0;
+          margin-top: 50px;
+          text-align: center;
+      }
+      
+      .footer p {
+          margin-bottom: 5px;
+          font-size: 0.9rem;
+      }
+      
+      .age-warning {
+          color: #ff9999;
+          font-weight: bold;
+      }
+      
+      .beverage-category {
+          margin-bottom: 25px;
+      }
+      
+      .beverage-category h5 {
+          color: var(--cafe-brown);
+          border-bottom: 2px solid var(--cafe-gold);
+          padding-bottom: 5px;
+          margin-bottom: 15px;
+      }
+      
+      @media (max-width: 768px) {
+          .cafe-title {
+              font-size: 2.2rem;
+          }
+          
+          .cafe-subtitle {
+              font-size: 1rem;
+              letter-spacing: 5px;
+          }
+          
+          .category-tab {
+              padding: 10px 15px;
+              font-size: 0.9rem;
+          }
+        @keyframes bump {
+          0% { transform: scale(1); }
+          30% { transform: scale(1.3); }
+          50% { transform: scale(1); }
+          70% { transform: scale(1.2); }
+          100% { transform: scale(1); }
+        }
 
-{% block navbar_right %}
-    
-    <li class="nav-item dropdown">
-          <a class="nav-link " data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-user fa-lg"></i></a>
-          <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Settings</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url "dologout" %}">Logout</a>
+        .cart-bump {
+          animation: bump 0.5s ease-out;
+        }
+
+      }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'dashboard' %}">☕ West End Café</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'event_list' %}">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'booking_list' %}">Reservations</a></li>
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="{% url 'cart_detail' %}">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span id="cart-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle" style="display: {% if cart.items.count %}inline-block{% else %}none{% endif %};">
+                {{ cart.items.count }}
+              </span>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                  <i class="fa-solid fa-user"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{% url 'order_list' %}"> Orders</a></li>
+                    <li><a class="dropdown-item" href="{% url 'booking_list' %}">Manage Bookings</a></li>
+                    <li><a class="dropdown-item" href="{% url 'refund' %}">Refunds</a></li>
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile Details</a></li>
+                    <li><a class="dropdown-item" href="{% url 'help' %}">Help</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'dologout' %}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        </div>
+    </div>
+</nav>
+<main class="m-4">
+  {% block main_content %}
+<!-- 🏠 MAIN CONTENT -->
+<div class="container-fluid my-3 py-5 text-center text-light" 
+     style="background-image: url('{% static 'images/picture3.jpg' %}'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            margin-top: -2em;
+            position: relative;
+            width: 100%;
+            overflow: hidden;">
+        <div class="container">
+          <h2 class="fw-bold display-4 text-uppercase text-shadow">MENU</h2>
+          <!-- Your food cards go here -->
+        </div>
+      </div>
+  <div class="menu-container">
+  <div id="cart-message" style="
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    z-index: 9999;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+">
+  <i class="bi bi-check-circle"></i> Added to cart!
+</div>
+
+
+    {% if special_menu_items %}
+         <!-- Special Section -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                  <h3 class="category-header">SPECIAL</h3>
+                      <ul class="list-unstyled mb-0">
+                    {% for item in special_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                        </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                  data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                      <!-- Add to Cart Button -->
+                        
+                    {% endfor %}
+                      
+                  </ul>
+                  
+              </div>
+              
           </div>
-    </li>
-{% endblock navbar_right %}
 
-{% block main_content %}
-    <h1 class="text-center">Welcome, {{user.username}}.</h1>
-{% endblock main_content %}
+    {% endif %}
+    
+    {% if breakfast_menu_items %}
+         <!-- Breakfast Section -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                  <h3 class="category-header">BREAKFAST</h3>
+                      <ul class="list-unstyled mb-0">
+                    {% for item in breakfast_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                        </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                  data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                      <!-- Add to Cart Button -->
+                        
+                    {% endfor %}
+                      
+                  </ul>
+                  
+              </div>
+              
+          </div>
+
+    {% endif %}
+
+
+    {% if light_meal_menu_items %}
+         <!-- Light Meals Section -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                 <h3 class="category-header">LIGHT MEALS</h3>
+                  <ul class="list-unstyled mb-0">
+                    {% for item in light_meal_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                      </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                 data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                  
+              </div>
+              
+          </div>
+
+    {% endif %}
+
+    {% if sandwich_menu_items %}
+         <!-- Sandwiche Section -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                <h3 class="category-header">SANDWICHES</h3>
+                  <ul class="list-unstyled mb-0">
+                    {% for item in sandwich_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                      </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                  data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                  
+              </div>
+              
+          </div>
+
+    {% endif %}
+
+
+    {% if main_course_menu_items %}
+         <!-- MAIN MEALS Section -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                <h3 class="category-header">MAIN MEALS</h3>
+                  <ul class="list-unstyled mb-0">
+                    {% for item in main_course_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                      </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                  data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                  
+              </div>
+              
+          </div>
+
+    {% endif %}
+    
+        {% if dessert_menu_items %}
+        <!-- Desserts Section -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                <h3 class="category-header">DESSERT</h3>
+                  <ul class="list-unstyled mb-0">
+                    {% for item in dessert_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                      </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                  data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                  
+              </div>
+              
+          </div>
+
+    {% endif %}
+
+
+    <!-- Beverages Section -->
+    {% if soft_drink_menu_items %}
+            <!-- Soft Drinks & Juices -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                <h3 class="category-header">SOFTDRINKS & JUICES</h3>
+                  <ul class="list-unstyled mb-0">
+                    {% for item in soft_drink_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                      </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                  data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                  
+              </div>
+              
+          </div>
+
+    {% endif %}
+
+        {% if beer_and_cider_menu_items %}
+            <!-- Beers & Ciders -->
+          <div id="breakfast" class="category-section active">
+              <div class="category-card">
+                <h3 class="category-header">BEERS & CIDERS</h3>
+                  <ul class="list-unstyled mb-0">
+                    {% for item in beer_and_cider_menu_items  %}
+                      <li class="d-flex justify-content-between align-items-start">
+                        <div class="menu-item">
+                          <div class="item-name">{{item.name}} <span class="item-price">R{{item.price}}</span></div>
+                          <div class="item-description">{{item.description}}</div>
+                      </div>
+                        <form method="post">
+                          {% csrf_token %}
+                          <button type="button"
+                                  class="btn btn-outline-primary me-3 mt-2 ms-auto add-to-cart-btn"
+                                  data-id="{{ item.pk }}">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                        </form>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                  
+              </div>
+              
+          </div>
+
+    {% endif %}
+
+        <!-- Optional button or footer -->
+        <div class="text-center mt-4">
+          <a href="{% static "pdf/WestEndCafe_Menu.pdf" %}" download class="btn btn-outline-dark">
+            <i class="bi bi-download me-2"></i>Download Full Menu
+          </a>
+        </div>
+    </div>
+  {% endblock main_content %}
+
+  </main>
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-4">
+          <h5>West End Café</h5>
+          <p>A cozy place to relax, enjoy great coffee, and share special moments.</p>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p><i class="fas fa-map-marker-alt me-2"></i> Unity Park, Lusikisiki, South Africa, 4820</p>
+          <p><i class="fas fa-phone-alt me-2"></i> <a href="tel:0638382764">063 838 2764</a></p>
+          <p><i class="fas fa-envelope me-2"></i> <a href="mailto:westandchillers@gmail.com">westandchillers@gmail.com</a></p>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Follow Us</h5>
+          <a href="https://www.facebook.com/profile.php?id=61567096079340" target="_blank" class="me-3">
+            <i class="fab fa-facebook-f fa-lg"></i>
+          </a>
+          <a href="#" target="_blank">
+            <i class="fab fa-instagram fa-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      <footer class="footer footer-bottom mt-5">
+            <p>Copyright &copy; 2025 West End Café | All rights reserved.</p>
+        </div>
+      </footer>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const buttons = document.querySelectorAll('.add-to-cart-btn');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      const id = this.dataset.id;
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      const messageDiv = document.getElementById('cart-message');
+
+      if (!id) {
+        alert("Item ID not found!");
+        return;
+      }
+
+      fetch(`/cart/add/${id}/`, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken,
+          'Accept': 'application/json'
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Show success message
+        messageDiv.style.display = 'block';
+        messageDiv.innerHTML = `<i class="bi bi-check-circle"></i> ${data.message}`;
+        
+        // Hide message after 2 seconds
+        setTimeout(() => {
+          messageDiv.style.display = 'none';
+        }, 2000);
+      })
+      .catch(error => {
+        alert('Failed to add item to cart.');
+        console.error(error);
+      });
+      // Update cart badge
+      const cartCount = document.getElementById('cart-count');
+      if(data.cart_count > 0){
+          cartCount.innerText = data.cart_count;
+          cartCount.style.display = 'inline-block';
+          cartCount.classList.remove('cart-bump'); // reset
+          void cartCount.offsetWidth; // trigger reflow
+          cartCount.classList.add('cart-bump');
+      } else {
+          cartCount.style.display = 'none';
+        }
+      });
+  });
+});
+</script>
+</body>
+</html>

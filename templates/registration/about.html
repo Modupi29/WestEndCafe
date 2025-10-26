@@ -1,0 +1,738 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>West End Café — Home</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+    }
+    .hero video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      top: 40%;
+      transform: translateY(-40%);
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 700;
+    }
+    .hero-content span {
+      color: #f8d210;
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 80px 0;
+    }
+    .about-section .img-fluid {
+      border-radius: 10px;
+    }
+
+    /* Specials */
+    .specials-section {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #222;
+      color: #ddd;
+      padding: 15px 0;
+    }
+    .footer a {
+      color: #f8d210;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      border-top: 1px solid #444;
+      text-align: center;
+      padding-top: 15px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'home' %}">☕ West End Café</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'menu_list' %}">Menus</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'event' %}">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservations</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{% url 'about' %}">About</a></li>
+        </ul>
+        <div class="d-flex ms-3">
+          <a href="{% url 'dologin' %}" class="btn btn-outline-light btn-sm me-2">Login</a>
+          <a href="{% url 'sign-up' %}" class="btn btn-warning btn-sm">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  />
+
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+    font-family: "Poppins", sans-serif;
+    background: #f8f8f8;
+    color: #222;
+    line-height: 1.6;
+    }
+
+    /* ---------------- HERO VIDEO ---------------- */
+    .home-hero-header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    }
+
+    .home-bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+    }
+
+    .home-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("images/About_pic.jpg") center center/cover no-repeat;
+    z-index: 1;
+    }
+
+    .home-header-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+    }
+
+    .home-header-content h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 400;
+    }
+    .home-header-content h1 span {
+    display: block;
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin-top: 0.2em;
+    }
+
+    /* ---------------- NAVBAR ---------------- */
+    .home-navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 10px 0;
+    transition: background 0.4s ease;
+    }
+
+    .home-navbar.scrolled {
+    background: rgba(0, 0, 0, 0.9);
+    }
+
+    /* NAV CONTAINER */
+    .home-nav-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    }
+
+    /* NAV LINKS */
+    .home-navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    }
+
+    .home-navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    }
+
+    .home-navbar a:hover,
+    .home-navbar a.active {
+    color: #33c1a0;
+    }
+
+    /* AUTH BUTTONS (LOGIN + SIGNUP) */
+    .home-auth {
+    display: flex;
+    gap: 10px;
+    }
+
+    .home-auth a {
+    text-decoration: none;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    }
+
+    .home-login {
+    border: 1px solid #fff;
+    }
+
+    .home-login:hover {
+    background: #fff;
+    color: #000;
+    }
+
+    .home-sign {
+    background: #33c1a0;
+    }
+
+    .home-sign:hover {
+    background: #1b9a7c;
+    }
+
+    /* MENU TOGGLE BUTTON */
+    .home-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    }
+
+    /* Mobile Login & Sign Up inside dropdown */
+    .home-auth-mobile {
+    display: none; 
+    }
+
+    @media (max-width: 900px) {
+    .home-auth {
+        display: none; 
+    }
+
+    .home-auth-mobile {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .home-auth-mobile a {
+        text-decoration: none;
+        color: #fff;
+        padding: 8px 18px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+
+    .home-auth-mobile .home-login {
+        border: 1px solid #fff;
+    }
+
+    .home-auth-mobile .home-login:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    .home-auth-mobile .home-sign {
+        background: #33c1a0;
+    }
+
+    .home-auth-mobile .home-sign:hover {
+        background: #1b9a7c;
+    }
+    }
+
+    /* ---------------- RESPONSIVE DESIGN ---------------- */
+    @media (max-width: 900px) {
+    .home-navbar ul {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.91);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .home-navbar ul.show {
+        display: flex;
+    }
+
+    .home-auth {
+        display: none; /* hide top-right buttons on small screens */
+    }
+
+    .home-menu-toggle {
+        display: block;
+    }
+    }
+
+    /* ---------------- CONTENT ---------------- */
+    .home-content {
+    padding: 28px 30px;
+    background: rgba(0, 28, 49, 0.67);
+    color: #000000;
+    text-align: center;
+    }
+
+    .home-content h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    }
+
+    .home-content p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-top: 10px;
+    }
+
+    /*ABOUT SECTION*/
+        /* Keep navbar fixed at top of page */
+    .container2 {
+        position: fixed; /* Fix position to top */
+        top: 0; /* Align to top of viewport */
+        width: 100%; /* Stretch full width */
+        z-index:1000; /* Keep above all other elements */
+        background-image: url("EventsImages/NavBarPic.jpeg");
+        height: 150px; /* Height of the background section */
+    }
+
+    .about-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 60px 10%;
+    gap: 40px;
+    flex-wrap: nowrap; /* ensures image stays beside text */
+    }
+
+    .about-text {
+    flex: 1.2; /* slightly wider text area */
+    }
+
+    .about-text h1 {
+    font-size: 50px;
+    font-weight: 800;
+    margin-bottom: 2px;
+    color:darkgoldenrod;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .about-text p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-family: arial,Arial, Helvetica, sans-serif;
+    }
+
+    .about-image {
+        margin-top: 30px;
+    }
+
+
+
+    .paragraph-box {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .paragraph-box p {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.9;
+    }
+
+    /*columns of the about section*/
+    /* Left column (About text) */
+    .left-column {
+    flex: 1;
+    padding: 40px;
+    overflow-y: scroll; /* scrollable content */
+    background-color: #214b4b;
+    font-weight: 100;
+
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .left-column h1 {
+    color: darkgoldenrod;
+    font-size: 50px;
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Right column (Map and Hours) */
+    .right-column {
+    flex: 1;
+    background-color:#214b4b;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden; /* this one scrolls separately */
+    }
+
+    .map-container {
+    margin-bottom: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    .hours h2 {
+    color: darkgoldenrod;
+    margin-bottom: 10px;
+    font-size: 30px;
+    }
+
+    .hours ul {
+    list-style: none;
+    padding: 0;
+    font-size: 15px;
+    }
+
+    .hours li {
+    margin-bottom: 8px;
+    font-size: 16px;
+    }
+
+    /* ---------------- FOOTER ---------------- */
+    .footer {
+    background-color: #111;
+    color: #ddd;
+    padding: 0px 20px 20px;
+    font-family: "Poppins", sans-serif;
+    }
+
+    .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    text-align: left;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+    flex: 1;
+    min-width: 250px;
+    margin: 20px 0;
+    }
+
+    .footer-left h3 {
+    color: #f5c518;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    }
+
+    .footer-description {
+    color: #aaa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    }
+
+    .footer-center h4,
+    .footer-right h4 {
+    color: #f5c518;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    }
+
+    .footer-center ul {
+    list-style: none;
+    padding: 0;
+    }
+
+    .footer-center li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    }
+
+    .footer-center i {
+    margin-right: 10px;
+    color: #f5c518;
+    }
+
+    .footer-center a {
+    text-decoration: none;
+    color: #ddd;
+    }
+
+    .footer-center a:hover {
+    color: #f5c518;
+    transition: 0.3s;
+    }
+
+    /* Social Media Icons */
+    .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.4rem;
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-icons a:hover {
+    color: #f5c518;
+    transform: scale(1.2);
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+    border-top: 1px solid #333;
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    font-size: 0.9rem;
+    color: #aaa;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        margin: 14px 0;
+    }
+    .footer-description{
+        font-size: 0.8rem;    
+    }
+    .footer-center li {
+        font-size: 0.9rem;
+        
+    }
+
+    .social-icons a {
+        font-size: 1.3rem;
+    }
+    }
+    </style>
+</head>
+
+<body>
+  <header class="hero">
+    <img src="{% static 'images/About_pic.jpg' %}" 
+        class="img-fluid w-100" 
+        alt="About us">
+  </header>
+
+
+  <section class="home-content"><section class="about-section">
+    <div class="left-column">
+      
+      <h1>About</h1>
+        
+      <p>
+     West End Café Restaurant, established on 4 October 2024 in the heart of Lusikisiki,
+        stands as one of the region’s most distinctive and vibrant social spaces.
+        Designed to capture both sophistication and creativity, West End Café offers a warm 
+        and versatile venue that brings people together — whether for professional engagements,
+        personal milestones, or simply to unwind in style. 
+      </p>
+        
+      <p>
+        Our mission is to create a space where culture, cuisine, and community meet.
+        The café’s artistic interior, infused with a blend of modern design and local inspiration,
+        sets the tone for memorable moments and meaningful connections.
+        During the week, our venue provides a quiet and welcoming environment
+        ideal for meetings, birthdays, and intimate occasions. We offer
+        complimentary high-speed Wi-Fi to ensure that our guests can stay
+        connected while they work, connect, or celebrate.
+      </p>
+        
+      <p>
+       During the week, West End Café provides a quiet, welcoming,
+        and productive environment ideal for meetings, business lunches,
+        study sessions, and intimate gatherings. 
+        Guests can enjoy the aroma of freshly brewed coffee while taking advantage of our complimentary high-speed Wi-Fi,
+        ensuring they stay connected and comfortable throughout their visit.
+      </p>
+      
+
+      <p>
+        As the weekend approaches, our venue undergoes an exciting transformation. 
+        West End Café becomes a vibrant entertainment hub, alive with the rhythm of music and the energy of celebration.
+        We host both indoor and outdoor events, featuring talented local and national artists, DJs, and live bands.
+        Our events create a unique blend of fun, artistry, and community spirit that continues to make West End Café a favorite destination in this part of the province.
+        Beyond being a physical space, West End Café is also a growing digital community. <br><br>We are active across social media platforms, where we share updates on upcoming events,
+        promotions, behind-the-scenes moments, and exclusive offers. Through these channels, our patrons can stay informed, inspired, and connected — always knowing what’s next at West End Café.
+
+        At its core, West End Café is more than just a restaurant; it’s a movement of creativity, hospitality, and connection — a place where every visit becomes a story worth sharing.
+      </p>
+    </div>
+  <!-- Right Column: Map + Hours -->
+  <div class="right-column">
+    <div class="map-container">
+      <!-- Google Map Embed -->
+      <iframe
+        title="Google Map showing location of West End Café Restaurant, Lusikisiki"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1524.0703755296594!2d29.55741765048275!3d-31.361087499999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e5f0f00671a57a1%3A0xb3511a826a58e708!2sWest%20End%20Cafe%20Restaurant!5e0!3m2!1sen!2sza!4v1698419412381!5m2!1sen!2sza"
+        width="100%"
+        height="300"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="hours">
+      <h2>Operating Hours</h2>
+      <ul>
+        <li>Monday - Thursday: 10:30 AM – 22:00 PM</li>
+        <li>Friday: 10:30 AM – 02:00 AM</li>
+        <li>Saturday: 12:30 AM – 02:00 PM</li>
+        <li>Sunday: 12:30 AM – 22:00 PM</li>
+      </ul>
+    </div>
+     <div class="reviews">
+
+
+      <!-- Elfsight Google Reviews Widget -->
+      <div class="elfsight-app-PLACEHOLDER-ID"></div>
+      <!-- Elfsight Google Reviews | Untitled Google Reviews -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-39effa40-e5e1-4786-ba2f-8dd65e8671f5" data-elfsight-app-lazy></div>
+    </div>
+  </div>
+  
+  </section>
+  </section>
+    
+
+  <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>West End Café</h3>
+      <p class="footer-description">
+        A cozy place to relax, enjoy great coffee, and share special moments.
+      </p>
+    </div>
+
+    <div class="footer-center">
+      <h4>Contact Us</h4>
+      <ul>
+        <li>
+          <i class="fas fa-map-marker-alt"></i>
+          <p><strong>Address:</strong> 
+            <a href="https://www.google.com/maps?q=Unity+Park,+Lusikisiki,+South+Africa,+4820" target="_blank">
+              Unity Park, Lusikisiki, South Africa, 4820
+            </a>
+          </p>
+        </li>
+        <li>
+          <i class="fas fa-phone-alt"></i>
+          <p><strong>Telephone:</strong> 
+            <a href="tel:0640991151">063 838 2764</a>
+          </p>
+        </li>
+        <li>
+          <i class="fas fa-envelope"></i>
+          <p><strong>Email:</strong> 
+            <a href="mailto:westandchillers@gmail.com">westandchillers@gmail.com</a>
+          </p>
+
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=61567096079340" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a> <!-- Placeholder for Instagram -->
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 West End Café | All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+  <script src="script.js"></script>
+</body>
+</html>

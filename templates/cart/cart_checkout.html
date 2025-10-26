@@ -1,0 +1,34 @@
+{% block content %}
+<div class="cart-checkout">
+    <h2>Checkout</h2>
+    {% if cart.items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.product.price }}</td>
+                    <td>${{ item.get_total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><strong>Grand Total: ${{ cart.get_total_price }}</strong></p>
+        <form method="post" action="{% url 'cart:checkout' %}">
+            {% csrf_token %}
+            <button type="submit">Place Order</button>
+        </form>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

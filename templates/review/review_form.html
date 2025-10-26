@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if review %}Edit{% else %}Add{% endif %} Review</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'review_list' %}">Reviews</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'review_list' %}">All Reviews</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Container -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">{% if review %}Edit{% else %}Add{% endif %} Review</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <!-- Non-field errors -->
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            {% endif %}
+
+                            <!-- Title -->
+                            <div class="mb-3">
+                                {{ form.title.label_tag }}
+                                {{ form.title|as_widget(attrs={'class':'form-control','placeholder':'Enter review title'}) }}
+                                {% for error in form.title.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Content -->
+                            <div class="mb-3">
+                                {{ form.content.label_tag }}
+                                {{ form.content|as_widget(attrs={'class':'form-control','rows':'4','placeholder':'Enter review content'}) }}
+                                {% for error in form.content.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Rating -->
+                            <div class="mb-3">
+                                {{ form.rating.label_tag }}
+                                {{ form.rating|as_widget(attrs={'class':'form-control','type':'number','min':'1','max':'5'}) }}
+                                {% for error in form.rating.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Date -->
+                            <div class="mb-3">
+                                {{ form.date.label_tag }}
+                                {{ form.date|as_widget(attrs={'class':'form-control','type':'date'}) }}
+                                {% for error in form.date.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-success w-100">
+                                {% if review %}Update{% else %}Add{% endif %} Review
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

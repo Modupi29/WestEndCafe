@@ -24,7 +24,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    item = models.ForeignKey(MenuItem, on_delete=models.CASCADE, related_name='cart_orderitems')
     quantity = models.PositiveIntegerField(default=1)
 
     def get_total(self):

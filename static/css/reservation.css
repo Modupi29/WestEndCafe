@@ -1,0 +1,417 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #222;
+  background-color: #f8f8f8;
+  line-height: 1.6;
+}
+
+/* ---------------- HERO / VIDEO BACKGROUND ---------------- */
+.hero-header {
+  position: relative;
+  width: 100%;
+  height: 65vh;
+  background: url("images/Booking_pic.jpg") center center/cover no-repeat;
+  overflow: hidden;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 52%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.header-content {
+  position: absolute;
+  top: 39%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.header-content h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+}
+.header-content h1 span {
+  display: block;
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-top: 0.2em;
+}
+
+
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 10px 0;
+  transition: background 0.4s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* NAV CONTAINER */
+.nav-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* NAV LINKS */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  color: #33c1a0;
+}
+
+/* AUTH BUTTONS (LOGIN + SIGNUP) */
+.auth {
+  display: flex;
+  gap: 10px;
+}
+
+.auth a {
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.login {
+  border: 1px solid #fff;
+}
+
+.login:hover {
+  background: #fff;
+  color: #000;
+}
+
+.sign {
+  background: #33c1a0;
+}
+
+.sign:hover {
+  background: #1b9a7c;
+}
+
+/* MENU TOGGLE BUTTON */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Mobile Login & Sign Up inside dropdown */
+.auth-mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .auth {
+    display: none; 
+  }
+
+  .auth-mobile {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .auth-mobile a {
+    text-decoration: none;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .auth-mobile .home-login {
+    border: 1px solid #fff;
+  }
+
+  .auth-mobile .home-login:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  .auth-mobile .home-sign {
+    background: #33c1a0;
+  }
+
+  .auth-mobile .home-sign:hover {
+    background: #1b9a7c;
+  }
+}
+
+/* ---------------- RESPONSIVE DESIGN ---------------- */
+@media (max-width: 900px) {
+  .navbar ul {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.91);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .navbar ul.show {
+    display: flex;
+  }
+
+  .auth {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+/* ---------------- CONTENT SECTIONS ---------------- */
+.content {
+  padding: 25px 15px;
+  text-align: center;
+  background: rgba(21, 97, 142, 0.67);
+}
+.Content_1 {
+  padding: 18px 19px;
+  text-align: center;
+  background: rgb(15, 110, 83);
+}
+
+.content h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: #000;
+}
+
+.content p {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: #fff;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.para {
+  padding: 2px 20px;
+  text-align: center;
+}
+
+.para p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #333;
+}
+
+.message {
+  padding: 25px 20px;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.8;
+}
+
+.message h3 {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.message p {
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  color: #444;
+  margin-bottom: 1em;
+}
+
+.ul {
+  color: #103bb4;
+}
+
+
+@media (max-width: 480px) {
+  .content {
+    padding: 24px 10px;
+  }
+
+  .message {
+    padding: 40px 15px;
+  }
+
+  .navbar a {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  background-color: #111;
+  color: #ddd;
+  padding: 0px 20px 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  text-align: left;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+  flex: 1;
+  min-width: 250px;
+  margin: 20px 0;
+}
+
+.footer-left h3 {
+  color: #f5c518;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.footer-description {
+  color: #aaa;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-center h4,
+.footer-right h4 {
+  color: #f5c518;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.footer-center ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-center li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.footer-center i {
+  margin-right: 10px;
+  color: #f5c518;
+}
+
+.footer-center a {
+  text-decoration: none;
+  color: #ddd;
+}
+
+.footer-center a:hover {
+  color: #f5c518;
+  transition: 0.3s;
+}
+
+/* Social Media Icons */
+.social-icons a {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 1.4rem;
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+  color: #f5c518;
+  transform: scale(1.2);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid #333;
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 15px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    margin: 14px 0;
+  }
+  .footer-description{
+    font-size: 0.8rem;    
+  }
+  .footer-center li {
+    font-size: 0.9rem;
+    
+  }
+
+  .social-icons a {
+    font-size: 1.3rem;
+  }
+}

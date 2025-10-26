@@ -7,6 +7,30 @@ from review.models import Review
 from .forms import ReportFilterForm
 
 @staff_member_required
+def report_list(request):
+    return render(request, 'report/report_list.html')
+
+@staff_member_required
+def report_create(request):
+    # Placeholder for report creation logic
+    return render(request, 'report/report_create.html') 
+
+@staff_member_required
+def report_edit(request, pk):
+    # Placeholder for report editing logic
+    return render(request, 'report/report_edit.html', {'pk': pk})
+@staff_member_required
+def report_delete(request, pk):
+    # Placeholder for report deletion logic
+    return render(request, 'report/report_delete.html', {'pk': pk})
+
+@staff_member_required
+def report_detail(request, pk):
+    # Placeholder for report detail logic
+    return render(request, 'report/report_detail.html', {'pk': pk})
+
+
+@staff_member_required
 def dashboard(request):
     return render(request, 'report/report_dashboard.html')
 

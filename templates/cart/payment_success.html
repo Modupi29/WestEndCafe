@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+  <h3>Payment Proof Submitted!</h3>
+  <p>Thank you. Your payment will be verified shortly.</p>
+  <a href="{% url 'dashboard' %}" class="btn btn-success mt-3">Return to Dashboard</a>
+</div>
+{% endblock %}

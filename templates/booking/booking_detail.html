@@ -1,0 +1,21 @@
+{% extends "registration/index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<div class="container mt-5">
+    <h2>Booking Detail</h2>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ booking.customer_name }}</h5>
+            <p class="card-text"><strong>Date:</strong> {{ booking.date }}</p>
+            <p class="card-text"><strong>Time:</strong> {{ booking.time }}</p>
+            <p class="card-text"><strong>Guests:</strong> {{ booking.guests }}</p>
+            <a href="{% url 'booking_update' booking.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'booking_delete' booking.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'booking_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}

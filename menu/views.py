@@ -3,10 +3,37 @@ from .models import MenuItem
 from .forms import MenuItemForm
 from cart.forms import CartAddForm
 from cart.cart import Cart
+from menu.models import MenuItem
 
 def menu_list(request):
-    items = MenuItem.objects.filter(available=True)
-    return render(request, 'menu/menu_list.html', {'items': items})
+    special_items = MenuItem.objects.filter(category='Special')
+    breakfast_items = MenuItem.objects.filter(category='Breakfast')
+    main_items = MenuItem.objects.filter(category='Main Course')
+    beverage_items = MenuItem.objects.filter(category='Beverages')
+    special_menu_items = MenuItem.objects.filter(category = 'SPECIAL', available=True)
+    breakfast_menu_items = MenuItem.objects.filter(category='BREAKFAST', available=True)
+    main_course_menu_items = MenuItem.objects.filter(category='MAIN MEALS', available=True)
+    soft_drink_menu_items = MenuItem.objects.filter(category='SOFTDRINKS & JUICES', available=True)
+    light_meal_menu_items = MenuItem.objects.filter(category='LIGHT MEALS', available=True)
+    beer_and_cider_menu_items = MenuItem.objects.filter(category='BEER & CIDERS', available=True)
+    sandwich_menu_items = MenuItem.objects.filter(category='SANDWICHES', available=True)
+    dessert_menu_items = MenuItem.objects.filter(category='DESSERT', available=True)
+        
+    context = {
+        'special_items': special_items,
+        'breakfast_items': breakfast_items,
+        'main_items': main_items,
+        'beverage_items': beverage_items,
+        'special_menu_items': special_menu_items,
+        'breakfast_menu_items': breakfast_menu_items,
+        'main_course_menu_items': main_course_menu_items,
+        'dessert_menu_items': dessert_menu_items,
+        'soft_drink_menu_items': soft_drink_menu_items,
+        'light_meal_menu_items': light_meal_menu_items,
+        'beer_and_cider_menu_items': beer_and_cider_menu_items,
+        'sandwich_menu_items': sandwich_menu_items,
+    }
+    return render(request, 'menu/menu_list.html', context)
 
 def menu_detail(request, pk):
     item = get_object_or_404(MenuItem, pk=pk)
@@ -33,12 +60,17 @@ def menu_edit(request, pk):
     else:
         form = MenuItemForm(instance=item)
     return render(request, 'menu/menu_edit.html', {'form': form})
+
 def menu_delete(request, pk):
     item = get_object_or_404(MenuItem, pk=pk)
     if request.method == 'POST':
         item.delete()
         return redirect('menu_list')
     return render(request, 'menu/menu_delete.html', {'item': item})
+
+def menu_download(request):
+    items = MenuItem.objects.filter(available=True)
+    return render(request, 'menu/menu_download.html', {'items': items})
 
 def add_to_cart(request, pk):
     cart = Cart(request)
@@ -59,11 +91,12 @@ def clear_cart(request):
     cart = Cart(request)
     cart.clear()
     return redirect('cart_detail')
+
 def cart_detail(request):
     cart = Cart(request)
     return render(request, 'cart/cart_detail.html', {'cart': cart})
 
-def checkout(request):
+def cart_checkout(request):
     cart = Cart(request)
     if len(cart) == 0:
         return redirect('menu_list')

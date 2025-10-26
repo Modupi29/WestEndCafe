@@ -18,3 +18,4 @@ class BookingForm(forms.ModelForm):
             'guests': 'Number of Guests',
             'special_request': 'Special Requests',
         }
+        

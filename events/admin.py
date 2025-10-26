@@ -3,7 +3,7 @@ from .models import Event
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'time', 'location', 'is_active', 'created_at')
+    list_display = ('title', 'date', 'time', 'is_active', 'created_at')
     list_filter = ('is_active', 'date')
-    search_fields = ('title', 'description', 'location')
+    search_fields = ['title', 'date']
     ordering = ('-date', 'time')

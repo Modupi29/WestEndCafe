@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List - WestEndCafe</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<style>
+        /* Footer */
+    .footer {
+      background-color: #222;
+      color: #ddd;
+      padding: 15px 0;
+    }
+    .footer a {
+      color: #f8d210;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      border-top: 1px solid #444;
+      text-align: center;
+      padding-top: 15px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+  </style>
+</style>
+<body>
+
+  <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'dashboard' %}">☕ West End Café</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'event_list' %}">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'booking_list' %}">Reservations</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'cart_detail' %}">
+                <i class="fa-solid fa-cart-shopping"></i>
+    
+                {% if cart.item_count > 0 %}
+                    <span class="badge bg-danger"></span>
+                    {% endif %}
+            </ul>
+            <ul class="navbar-nav ms-3">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                    <i class="fa-solid fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{% url 'order_list' %}"> Orders</a></li>
+                        <li><a class="dropdown-item" href="{% url 'booking_list' %}">Manage Bookings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'refund' %}">Refunds</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile Details</a></li>
+                        <li><a class="dropdown-item" href="{% url 'help' %}">Help</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'dologout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5 my-5">
+    <h2>Order Detail</h2>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ order.customer_name }}</h5>
+            <p class="card-text"><strong>Order Date:</strong> {{ order.order_date }}</p>
+            <p class="card-text"><strong>Total Items:</strong> {{ order.total_items }}</p>
+            <p class="card-text"><strong>Total Price:</strong> R {{ order.total_price }}</p>
+            <p class="card-text"><strong>Status:</strong> {{ order.status }}</p>
+            <a href="{% url 'order_edit' order.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'order_delete' order.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'order_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-4">
+          <h5>West End Café</h5>
+          <p>A cozy place to relax, enjoy great coffee, and share special moments.</p>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p><i class="fas fa-map-marker-alt me-2"></i> Unity Park, Lusikisiki, South Africa, 4820</p>
+          <p><i class="fas fa-phone-alt me-2"></i> <a href="tel:0638382764">063 838 2764</a></p>
+          <p><i class="fas fa-envelope me-2"></i> <a href="mailto:westandchillers@gmail.com">westandchillers@gmail.com</a></p>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Follow Us</h5>
+          <a href="https://www.facebook.com/profile.php?id=61567096079340" target="_blank" class="me-3">
+            <i class="fab fa-facebook-f fa-lg"></i>
+          </a>
+          <a href="#" target="_blank">
+            <i class="fab fa-instagram fa-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      <footer class="footer footer-bottom mt-5">
+            <p>Copyright &copy; 2025 West End Café | All rights reserved.</p>
+        </div>
+      </footer>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</body>
+</html>

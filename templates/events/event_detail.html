@@ -1,0 +1,21 @@
+{% extends "registration/index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<div class="container mt-5">
+    <h2>Event Detail</h2>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ event.name }}</h5>
+            <p class="card-text"><strong>Date:</strong> {{ event.date }}</p>
+            <p class="card-text"><strong>Time:</strong> {{ event.time }}</p>
+            <p class="card-text"><strong>Location:</strong> {{ event.location }}</p>
+            <p class="card-text"><strong>Description:</strong> {{ event.description }}</p>
+            <a href="{% url 'event_edit' event.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'event_delete' event.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'event_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
