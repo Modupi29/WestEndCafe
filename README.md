@@ -32,5 +32,5 @@ It allows customers to browse the menu, place online orders, and make reservatio
 
 ### 1️ Clone the repository
 ```bash
-git clone https://github.com/Zuziwe0/WestEndCafe.git
+git clone https://github.com/Modupi29/WestEndCafe.git
 
